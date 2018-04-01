@@ -13,3 +13,24 @@ class Employee:
         self.salary = salary
         self.birthday = birthday
 
+    def set_empid(self, empid):
+        self.empid = empid
+
+    def set_gender(self, gender):
+        self.gender = gender
+
+    def set_age(self, age):
+        self.age = age
+
+    def set_sales(self, sales):
+        self.sales = sales
+
+    def set_bmi(self, bmi):
+        self.bmi = bmi
+
+    def set_salary(self, salary):
+        self.salary = salary
+
+    def set_birthday(self, birthday):
+        self.birthday(self.birthday)
+
