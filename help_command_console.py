@@ -1,4 +1,9 @@
-import cmd
+from cmd import Cmd
+from csv import Error as CSVError
+from data_validator import DataValidator
+from view_console import ViewConsole as View
+from emplyee_data import EmpolyeeData
+from employee import Employee
 import string
 import sys
 import os
@@ -6,12 +11,17 @@ import os
 # function Get the users environment os.
 
 
-class CLI(cmd.Cmd):
+class CLI(Cmd):
 
     def __init__(self):
-        cmd.Cmd.__init__(self)
+        Cmd.__init__(self)
         self.prompt = '>>> '
         self.intro = "WELCOME TO THE EMPLOYEE HELP CONSOLE!"
+
+        # object of DataValidator for validating employee data
+        self._valid = DataValidator()
+
+
 
     def do_help(self, args):
         """Get help on commands

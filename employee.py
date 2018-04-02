@@ -1,36 +1,18 @@
 # Create an employee class
+from enum import Enum, unique
+# The enum module defines an enumeration
+# type with iteration and comparison
+# capabilities. It can be used to create
+# well-defined symbols for values,
+# instead of using literal integers or strings.
 
 
-class Employee:
-
-    # Initialize the attribute
-    def __init__(self, empid, gender, age, sales, bmi, salary, birthday):
-        self.empid = empid
-        self.gender = gender
-        self.age = age
-        self.sales = sales
-        self.bmi = bmi
-        self.salary = salary
-        self.birthday = birthday
-
-    def set_empid(self, empid):
-        self.empid = empid
-
-    def set_gender(self, gender):
-        self.gender = gender
-
-    def set_age(self, age):
-        self.age = age
-
-    def set_sales(self, sales):
-        self.sales = sales
-
-    def set_bmi(self, bmi):
-        self.bmi = bmi
-
-    def set_salary(self, salary):
-        self.salary = salary
-
-    def set_birthday(self, birthday):
-        self.birthday = birthday
-
+@unique
+class Employee(Enum):
+    EMPID = 0
+    GENDER = 1
+    AGE = 2
+    SALES = 3
+    BMI = 4
+    SALARY = 5
+    BIRTHDAY = 6

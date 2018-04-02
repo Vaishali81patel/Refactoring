@@ -1,15 +1,25 @@
-# Create exceptional error handling interface class
-# This is an interface class of Database base class
+from abc import ABCMeta, abstractmethod
+# An abstract method is a method that is declared,
+# but contains no implementation. Abstract classes
+# may not be instantiated, and require subclasses
+# to provide implementations for the abstract methods.
 
 
-class IDatabase(object):
+class IDatabase(metaclass=ABCMeta):
 
-    @property
-    def create_database_connection(self, database_name='mydb'):
-        raise NotImplementedError("An Abstract method has not been implemented yet!")
+    @abstractmethod
+    def read(self):
+        """
+        This enable to read data from the local files or database
+        :return: list of existing Data
+        """
+        pass
 
-    def insert_employee_data(self, employee_ob):
-        raise NotImplementedError("An Abstract method has not been implemented Yet!!")
-
-    def select_employee_data(self, employee_ob ):
-        raise NotImplementedError("An Abstract method has not been implemented yet!!!")
+    @abstractmethod
+    def save(self, data: list):
+        """
+        This enable to save data to local files or database
+        :param data:
+        :return: Boolean
+        """
+        pass
