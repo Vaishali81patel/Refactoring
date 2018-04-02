@@ -32,5 +32,5 @@ class Employee:
         self.salary = salary
 
     def set_birthday(self, birthday):
-        self.birthday(self.birthday)
+        self.birthday = birthday
 
