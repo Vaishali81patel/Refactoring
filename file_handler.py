@@ -1,6 +1,6 @@
 import csv
 from os import path, makedirs
-from IDatabase import *
+from i_database import IDatabase
 from employee import Employee
 
 
@@ -51,12 +51,50 @@ class FileHandler(IDatabase):
         :return:
         written By: Vaishali Patel
         """
-        # Try to open the file for read. Newline to avoid
+        # Try to open the file for read. Newline to avoid different newline signs
+        with open(self.__path, newline="") as f:
+            # Try to read data with given fieldnames
+            reader = csv.DictReader(f, fieldnames=self._fieldnames)
+            # save data in an array, but ignore the first line
+            employee = list(dict(row) for row in reader)[1:]
+        return employee
+
+    def file_exist(self):
+        """
+        Check if the given file/path exists
+        :return:
+        """
+        return path.exists(self.__path)
+
+    def save(self, employee: list):
+        """
+        This function enable to saves new data to the CSV file
+        :param employee:
+        :return:
+        """
+        # If the data type of data is not List, raise an exception
+        # Those exceptions need to be caught when the function is called
+        if not type(employee) == list:
+            raise AttributeError("Data should be a list")
+        # Raise an exception if the file/path doesn't exist
+        # Those exceptions need to be caught when the function is called
+        elif not self.file_exist():
+            raise OSError("The CSV file does not exists.")
+        else:
+            # Open the file to write
+            with open(self.__path, "a") as f:
+                # Write all temporary data list to the file
+                writer = csv.writer(f, lineterminator="\n")
+                for row in employee:
+                    writer.writerow(row.values())
 
 
-
-
-
+# op = file_handler('files/data/staffinfo3.csv', True)
+# # print(op.read())
+# new_data_01 = [{"empid": "Y413", "gender": "M", "age": 41, "sales": 200,
+# "bmi": "Obesity", "salary": 450, "birthday": "01-09-1977"}, {"empid": "Y414", "gender": "F", "age": 33, "sales": 200,
+# "bmi": "Obesity", "salary": 450, "birthday": "04-10-1985"}]
+# op.save(new_data_01)
 
 
 

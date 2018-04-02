@@ -1,12 +1,12 @@
 from cmd import Cmd
-from IDatabase import *
-# from csv import Error as CSVError
+from i_database import IDatabase
+from employee import Employee
+from csv import Error as CSVError
 # from view_console import ViewConsole as View
-# from emplyee_data import EmpolyeeData
-# from employee import Employee
-# import string
-#import sys
-# import os
+# from employee_data import Employee_data
+import string
+import sys
+import os
 # Import os Executing a shell command os.system \
 # function Get the users environment os.
 

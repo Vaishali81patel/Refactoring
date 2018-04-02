@@ -1,4 +1,4 @@
-from IDatabase import *
+from i_database import IDatabase
 import sqlite3
 from employee import Employee
 # This class enable to handle database and csv file connection
