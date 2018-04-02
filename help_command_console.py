@@ -1,12 +1,12 @@
 from cmd import Cmd
-from csv import Error as CSVError
-from data_validator import DataValidator
-from view_console import ViewConsole as View
-from emplyee_data import EmpolyeeData
-from employee import Employee
-import string
-import sys
-import os
+from IDatabase import *
+# from csv import Error as CSVError
+# from view_console import ViewConsole as View
+# from emplyee_data import EmpolyeeData
+# from employee import Employee
+# import string
+#import sys
+# import os
 # Import os Executing a shell command os.system \
 # function Get the users environment os.
 
@@ -21,7 +21,8 @@ class CLI(Cmd):
         # object of DataValidator for validating employee data
         self._valid = DataValidator()
 
-
+        # Instance of EmployeeData
+        # self._std = EmployeeData()
 
     def do_help(self, args):
         """Get help on commands
