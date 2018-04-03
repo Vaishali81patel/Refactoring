@@ -7,7 +7,7 @@ from time import strptime
 class DataValidator:
 
     def __init__(self):
-        self.validators =(
+        self.validators = (
             self.check_empid,
             self.check_gender,
             self.check_age,
@@ -149,7 +149,9 @@ class DataValidator:
         if match:
             date = "-".join(match.groups())
             format = strptime(date, "%d-%m-%Y")
-            return "{0}-{1}-{2}".format(format.tm_mday, format.tm_mon, format.tm_year)
+            return "{0}-{1}-{2}".format(
+                            format.tm_mday, format.tm_mon, format.tm_year
+                            )
         else:
             return None
 
