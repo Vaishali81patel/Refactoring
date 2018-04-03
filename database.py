@@ -43,9 +43,10 @@ class Database(IDataAccess):
         #
         # Create employee table if not exists
         try:
-            create_table = """ CREATE TABLE IF NOT EXISTS EMPLOYEE ({0} VARCHAR (6), 
-                                {1} CHAR, {2} INTEGER, {3} INTEGER, 
-                                {4} VARCHAR, {5} INTEGER, {6} DATE);"""
+            create_table = """ CREATE TABLE IF NOT EXISTS EMPLOYEE(
+                                {0} VARCHAR (6),  {1} CHAR, {2} INTEGER
+                                , {3} INTEGER, {4} VARCHAR, {5} INTEGER
+                               , {6} DATE);"""
             create_table = self.format_column(create_table)
             self.cursor.execute(create_table)
             self.db_conn.commit()
@@ -71,17 +72,22 @@ class Database(IDataAccess):
         #
         #
         try:
-            insert_string_1 = "INSERT INTO EMPLOYEE ({0}, {1}, {2}, {3}, {4}, {5}, {6})"
+            insert_string_1 = "INSERT INTO EMPLOYEE(
+                                                    {0}, {1}, {2}, {3}, {4}, {5}, {6}
+                                                    )"
             insert_string_2 = self.format_column(insert_string_1)
-            insert_string_2 += """VALUES("{0}", "{1}", "{2}", "{3}", "{4}", "{5}", "{6}");"""
+            insert_string_2 += """VALUES("{0}", "{1}", "{2}", "{3}"
+                                                    , "{4}", "{5}", "{6}");"""
             try:
-                insert_values = insert_string_2.format(row_data[Employee.EMPID.name],
+                insert_values = insert_string_2.format(
+                                                       row_data[Employee.EMPID.name],
                                                        row_data[Employee.GENDER.name],
                                                        row_data[Employee.AGE.name],
                                                        row_data[Employee.SALES.name],
                                                        row_data[Employee.BMI.name],
                                                        row_data[Employee.SALARY.name],
-                                                       row_data[Employee.BIRTHDAY.name])
+                                                       row_data[Employee.BIRTHDAY.name]
+                                                       )
                 self.cursor.execute(insert_values)
                 self.db_conn.commit()
             except ConnectionError:
@@ -126,12 +132,12 @@ class Database(IDataAccess):
             self.cursor.execute(" SELECT * FROM EMPLOYEE ")
             result = self.cursor.fetchall()
             for r in result:
-                    data_arr_list.append({e.name :r[e.value] for e in Employee})
+                    data_arr_list.append(
+                                        {e.name: r[e.value] for e in Employee}
+                                        )
             return data_arr_list
         except ConnectionError:
             print(ConnectionError)
         except AttributeError as err:
             print(err)
             return False
-
-
