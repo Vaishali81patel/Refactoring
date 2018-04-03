@@ -1,13 +1,9 @@
 from cmd import Cmd
-from i_database import IDatabase
-from employee import Employee
 from csv import Error as CSVError
 from data_validator import DataValidator
-# from view_console import ViewConsole as View
-# from employee_data import Employee_data
-import string
-import sys
-import os
+from employee import Employee
+from view_console import ViewConsole as View
+from employee_data_access import EmployeeData
 # Import os Executing a shell command os.system \
 # function Get the users environment os.
 
@@ -23,63 +19,63 @@ class CLI(Cmd):
         self._valid = DataValidator()
 
         # Instance of EmployeeData
-        # self._std = EmployeeData()
+        self._std = EmployeeData()
 
 
-def do_select(self, line):
-    """
-    Select data from source
-    :param self:
-    :param line:
-    :return:
-    """
-    # Available data source
-    options = "-csv", "-db"
-    args = list(arg.lower() for arg in str(line).split())
+    def do_select(self, line):
+        """
+        Select data from source
+        :param self:
+        :param line:
+        :return:
+        """
+        # Available data source
+        options = "-csv", "-db"
+        args = list(arg.lower() for arg in str(line).split())
 
-    try:
-        # Check if the input data source is available in this program or not
-        if args[0] not in options:
-            raise ValueError("The data source is not available")
-        else:
-            # Code for initialise CSV data source
-            if args[0] == "-csv":
-                try:
-                    if len(args) == 1:
-                        self._std.select_source(args[0][1:], "employeeInfo.csv")
-                        View.warning("No CSV file path specified. A default file \"employee.csv\ will be used.")
-                    elif len(args) == 2:
-                        self._std.select_source(args[0][1:], args[1])
-                    elif len(args) == 3:
-                        if args[1] == "-a":
-                            self._std.select_source(args[0][1:], args[2], True)
-                except (CSVError, OSError) as e:
-                    View.error(e)
-                except Exception as e:
-                    View.error(e)
-                else:
-                    View.Success("Daa source CSV is selected.")
-
-            # Code for initialize database source
-            elif args[0] == "-db":
-                try:
-                    self._std.select_source(args[0][1:])
-                except (ConnectionAbortedError, TypeError) as e:
-                    View.error(e)
-                except Exception as e:
-                    View.error(e)
-                else:
-                    View.Success("Data source Database is selected.")
-
-            # Code for initialixe XXXX data source
+        try:
+            # Check if the input data source is available in this program or not
+            if args[0] not in options:
+                raise ValueError("The data source is not available")
             else:
-                pass
-    #Catch and display error message
-    except ValueError as e:
-        View.error(str(e) + "\n")
-        View.help_select()
-    except Exception as e:
-        View.error(e)
+                # Code for initialise CSV data source
+                if args[0] == "-csv":
+                    try:
+                        if len(args) == 1:
+                            self._std.select_source(args[0][1:], "employeeInfo.csv")
+                            View.warning("No CSV file path specified. A default file \"employee.csv\ will be used.")
+                        elif len(args) == 2:
+                            self._std.select_source(args[0][1:], args[1])
+                        elif len(args) == 3:
+                            if args[1] == "-a":
+                                self._std.select_source(args[0][1:], args[2], True)
+                    except (CSVError, OSError) as e:
+                        View.error(e)
+                    except Exception as e:
+                        View.error(e)
+                    else:
+                        View.Success("Daa source CSV is selected.")
+
+                # Code for initialize database source
+                elif args[0] == "-db":
+                    try:
+                        self._std.select_source(args[0][1:])
+                    except (ConnectionAbortedError, TypeError) as e:
+                        View.error(e)
+                    except Exception as e:
+                        View.error(e)
+                    else:
+                        View.Success("Data source Database is selected.")
+
+                # Code for initialixe XXXX data source
+                else:
+                    pass
+        #Catch and display error message
+        except ValueError as e:
+            View.error(str(e) + "\n")
+            View.help_select()
+        except Exception as e:
+            View.error(e)
 
     def do_add(self, line):
         """
@@ -122,7 +118,6 @@ def do_select(self, line):
         else:
             View.success("Add data")
 
-
     def do_save(self, arg):
         """
         Save data to specified sata source
@@ -142,7 +137,6 @@ def do_select(self, line):
         else:
             View.success("Data is saved.")
 
-
     def do_show(self, line):
         """
         Get all instructions
@@ -159,14 +153,14 @@ def do_select(self, line):
 
         # Show data_table
         if args[0] == "-t":
-            if len(self._std.data) == 0 and len(self._std.new_data) == 0:
-               View.info("No data tp display.")
-            if not len(self._std.data) == 0:
+            if len(self._std.emp_data) == 0 and len(self._std.new_emp_data) == 0:
+               View.info("No data to be displayed.")
+            if not len(self._std.emp_data) == 0:
                 View.display("ORIGINAL DATA:")
-                View.display_data(self._std.data, ind=True)
-            if not len(self._std.new_data) == 0:
+                View.display_data(self._std.emp_data, ind=True)
+            if not len(self._std.new_emp_data) == 0:
                 View.display("\nNew DATA:")
-                View.display_data(self._std.new_data, ind=True)
+                View.display_data(self._std.new_emp_data, ind=True)
                 View.display("\n(Input command \"save\" to save the new data")
 
         elif args[0] in plot_commands:
@@ -174,11 +168,11 @@ def do_select(self, line):
                 if len(args) == 1:
                     raise IndexError("Incomplete command line.")
 
-                if args[0] == "-p"
+                if args[0] == "-p":
                     self.show_pie(args[1])
                 if args[0] == "-b":
                     self.show_bar(args[1])
-                if args[0] == "-c"
+                if args[0] == "-c":
                     self.show_scatter(args[1])
 
             except IndexError as e:
@@ -187,7 +181,6 @@ def do_select(self, line):
         else:
             View.info("Invalid command line.\n")
             View.help_show()
-
 
     def show_pie(self, line):
         """
@@ -210,7 +203,6 @@ def do_select(self, line):
         except Exception as e:
             View.error(e)
 
-
     def show_bar(self, line):
         """
         Draw Bar Chart
@@ -229,8 +221,7 @@ def do_select(self, line):
         except Exception as e:
             View.error(e)
 
-
-    def show_Scatter(Self, line):
+    def show_scatter(Self, line):
         """
         Draw Scatter Chart
         :param Self:
@@ -241,16 +232,15 @@ def do_select(self, line):
             if len (self._std.get_gender ()) == 0 or len (self._std.get_gender ()) == 0:
                 raise ValueError ("No data to display.")
             # Draw gender
-            if line.upper () == Data.GENDER.name:
+            if line.upper () == Employee.GENDER.name:
                 View.plot_bar (self._std.get_gender (), "Gender Distribution")
             # Draw BMI
-            if line.upper () == Data.SALARY.name:
+            if line.upper () == Employee.SALARY.name:
                 View.plot_bar (self._std.get_salary (), "Body Mass Index (SALARY)")
         except ValueError as e:
             View.info (e)
         except Exception as e:
             View.error (e)
-
 
     @staticmethod
     def help_show():
@@ -280,7 +270,7 @@ def do_select(self, line):
             View.display("Thanks for using Console. Bye!")
             return True
 
-        
+
 if __name__ == "__main__":
     ctl = CLI()
     ctl.cmdloop()

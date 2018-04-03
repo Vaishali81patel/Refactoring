@@ -1,10 +1,10 @@
 import csv
 from os import path, makedirs
-from i_database import IDatabase
+from idata_access import IDataAccess
 from employee import Employee
 
 
-class FileHandler(IDatabase):
+class FileHandler(IDataAccess):
     """
         This class enable to handle csv file, read and write
         Written By: Vaishali Patel

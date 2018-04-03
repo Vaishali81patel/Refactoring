@@ -5,7 +5,7 @@ from abc import ABCMeta, abstractmethod
 # to provide implementations for the abstract methods.
 
 
-class IDatabase(metaclass=ABCMeta):
+class IDataAccess(metaclass=ABCMeta):
 
     @abstractmethod
     def read(self):

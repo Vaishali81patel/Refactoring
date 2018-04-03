@@ -1,4 +1,4 @@
-from i_database import IDatabase
+from idata_access import IDataAccess
 import sqlite3
 from employee import Employee
 # This class enable to handle database and csv file connection
@@ -6,7 +6,7 @@ from employee import Employee
 # Author: Patel
 
 
-class Database(IDatabase):
+class Database(IDataAccess):
 
     def __init__(self):
         # Create an connection object to connect to Employee Database
