@@ -14,7 +14,7 @@ class ViewConsole(View):
         print("Error: %s" % text)
 
     @staticmethod
-    def success(text):
+    def Success(text):
         print("Warning: %s" % text)
 
     @staticmethod

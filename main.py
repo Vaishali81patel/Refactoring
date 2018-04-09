@@ -1,4 +1,4 @@
-from interpreter_controller import *
+# from interpreter_controller import *
 from view import *
 from interpreter import *
 from file_handler import *

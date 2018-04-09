@@ -6,7 +6,7 @@ class DataValidatorTests (unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.dataValidator = DataValidator ()
+        cls.dataValidator = DataValidator()
 
     def setUp(self):
         # be executed before each test

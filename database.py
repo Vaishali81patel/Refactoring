@@ -72,9 +72,7 @@ class Database(IDataAccess):
         #
         #
         try:
-            insert_string_1 = "INSERT INTO EMPLOYEE(
-                                                    {0}, {1}, {2}, {3}, {4}, {5}, {6}
-                                                    )"
+            insert_string_1 = "INSERT INTO EMPLOYEE({0}, {1}, {2}, {3}, {4}, {5}, {6})"
             insert_string_2 = self.format_column(insert_string_1)
             insert_string_2 += """VALUES("{0}", "{1}", "{2}", "{3}"
                                                     , "{4}", "{5}", "{6}");"""

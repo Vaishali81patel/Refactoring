@@ -120,7 +120,7 @@ class CLI(Cmd):
 
     def do_save(self, arg):
         """
-        Save data to specified sata source
+        Save data to specified data source
         :param self:
         :param arg:
         :return:

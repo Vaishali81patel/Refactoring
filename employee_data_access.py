@@ -12,7 +12,7 @@ class EmployeeData:
         self.new_emp_data = []
         self.data_source = None
 
-    def select_data_source(self, data_source, file_path=None, create=False):
+    def select_source(self, data_source, file_path=None, create=False):
         """
         This function enable to initialize employee data and file source
         :param data_source: <string>

@@ -1,9 +1,9 @@
 # By Vaishali
 # DocTest
-from Model.DataValidation.data_validator import IDataValidator
+from data_validator import DataValidator
 import re
 import doctest
-doctest.testfile("Model/DataValidation/employee.txt")
+# doctest.testfile("employee.txt")
 
 
 class Test:
@@ -19,7 +19,7 @@ class Test:
         return self._number*2
 
 
-class DataValidator(IDataValidator):
+class DataValidator(DataValidator):
 
     # Check valid empid
     def validate_empid(empid):
