@@ -21,3 +21,4 @@ class IDataAccess(metaclass=ABCMeta):
         :return: Boolean
         """
         pass
+
