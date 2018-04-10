@@ -89,9 +89,3 @@ class FileHandler(IDataAccess):
                     writer.writerow(row.values())
 
 
-# op = FileHandler('files/data/employeeinfo3.csv', True)
-# # print(op.read())
-# new_data_01 = [{"empid": "Y413", "gender": "M", "age": 41, "sales": 200,
-# "bmi": "Obesity", "salary": 450, "birthday": "01-09-1977"}, {"empid": "Y414", "gender": "F", "age": 33, "sales": 200,
-# "bmi": "Obesity", "salary": 450, "birthday": "04-10-1985"}]
-# op.save(new_data_01)
