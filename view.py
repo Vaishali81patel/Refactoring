@@ -86,7 +86,6 @@ class View(metaclass=ABCMeta):
         """
         pass
 
-
     @staticmethod
     @abstractmethod
     def plot_Scatter(data, title=""):
