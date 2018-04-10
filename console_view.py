@@ -88,7 +88,7 @@ class ViewConsole(View):
         width = 0.5
 
         # Set X, Y, bar width and bar colour
-        plt.bar(x, y, width, color="#FF55AA")
+        plt.bar(x, y, width, color="#00FFFF")
 
         # Set labels for X items
         plt.xticks(x, labels)
@@ -116,7 +116,7 @@ class ViewConsole(View):
         width = 0.2
 
         # Set Y, X, bar width and bar colour
-        plt.barh(y, x, width, color="#FF55AA")
+        plt.barh(y, x, width, color="#ADD8E6")
 
         # Set labels for Y items
         plt.yticks(y, labels)
