@@ -1,119 +1,115 @@
 import re
-from employee import Employee
+from data import Data
 from time import strptime
-# This module provides various time-related functions.
 
 
 class DataValidator:
 
     def __init__(self):
+        # A function list if validators
         self.validators = (
-            self.check_empid,
-            self.check_gender,
-            self.check_age,
-            self.check_sales,
-            self.check_bmi,
-            self.check_salary,
+            self.check_empid, self.check_gender, self.check_age,
+            self.check_sales, self.check_bmi, self.check_salary,
             self.check_birthday
         )
 
     @staticmethod
     def check_empid(input_empid):
         """
-        Validate user input empid
-        :param input_empid:
-        :return:
-        Written By: Vaishali Patel
+        Check if the input empID is valid.
+        :return: Formatted empid if the input one is valid, otherwise, return None
+        Author: Vaishali Patel
         """
-        # Convert the input employee id to string
+        # Convert the input data to string
         empid = str(input_empid)
 
-        # Check if there are combination of [A-Z][0-9]{3} e.r E111
+        # Regular expression checks if there are combination of [A-Z][0-9]{3} e.r E101
         # :P<empid> Assign to the group with the keyword 'empid'
         pattern = r"\D*(?P<empid>[A-Z][0-9]{3})\D*"
         match_obj = re.search(pattern, empid, re.I)
         if match_obj:
+            # Get the matched word
             empid = match_obj.group("empid")
-            # Get the matching word
+            # Convert the first letter to Uppercase and lowercase for rest of them
+
             return empid.upper()
-            # Convert the first letter to Uppercase and the rest is lowercase
+        # Return None if no match found
         return None
-        # return None if match not found
 
     @staticmethod
-    def check_gender(input_gender):
+    def check_gender(gender):
         """
-        Check valid employee gender
-        :param input_gender:
-        :return:
-        Written By: Vaishali Patel
+        Check validation of gender
+        :param gender: <String>
+        :return: washed data
+        :Author: Vaishali Patel
         """
         pattern_01 = r"^(?P<gender>F\w*|M\w*)$"
-        pattern_02 = r"^(?P<gender>girl\boy)$"
-        match_01 = re.match(pattern_01, input_gender, re.I)
+        pattern_02 = r"^(?P<gender>girl|boy)$"
+        match_01 = re.match(pattern_01, gender, re.I)
         result = None
         if match_01:
-            gender = match_01.group("input_gender").upper()
+            gender = match_01.group("gender").upper()
             result = gender[0]
         else:
-            match_02 = re.match(pattern_02, input_gender, re.I)
+            match_02 = re.match(pattern_02, gender, re.I)
             if match_02:
-                gender = match_02.group("input_gender").upper()
-                result = "F" if input_gender == "GIRL" else "M"
+                gender = match_02.group("gender").upper()
+                result = "F" if gender == "GIRL" else "M"
         return result
 
     @staticmethod
-    def check_age(input_age):
+    def check_age(age):
         """
-        check valid employee age
-        :param input_age:
-        :return:
-        Written By: Vaishali Patel
+        Check validation of age
+        :param age: <String>
+        :return: washed data
+        :Author: Vaishali Patel
         """
         pattern = r"^(?P<age>[0-9]{2})$"
-        match_obj = re.match(pattern, input_age)
+        match_obj = re.match(pattern, age)
         if match_obj:
-            return int(match_obj.group("input_age"))
-            # Convert the match obj to integer and
-            # Return Non if matches not found
+            # Convert the match to integer and return
+            return int(match_obj.group("age"))
+        # Return None if no match found
         return None
 
     @staticmethod
-    def check_sales(input_sales):
+    def check_sales(sales):
         """
-        check valid employee sales
-        :param input_sales:
-        :return:
-        Written By: Vaishali Patel
+        Check if the input sales is valid.
+        :return: Formatted sales if the input one is valid, otherwise, return None
+        :Author: Vaishali Patel
         """
         # Regular expression checks if there are consecutive 3 numbers
-        # :P<sales> Assign to the group with the keyword 'sales'
+        # :P<salary> Assign to the group with the keyword 'salary'
         pattern = r"\D*(?P<sales>[0-9]{2,3})\D*"
-        match_obj = re.search(pattern, input_sales)
+        match_obj = re.search(pattern, sales)
         if match_obj:
-            # Convert the match to integer
-            return int(match_obj.group("input_sales"))
+            # Convert the match to integer and return
+            return int(match_obj.group("sales"))
         # Return None if no match found
         return None
 
     @staticmethod
     def check_bmi(input_bmi):
         """
-        Check valid employee bmi
-        :param input_bmi:
-        :return:
+        Check if the input BMI is valid.
+        :return: Formatted BMI if the input one is valid, otherwise, return None
+        :Author: Vaishali Patel
         """
-        # First convert the user input bmi into string
+        # Convert the input data to string
         bmi = str(input_bmi)
 
-        # Regular expression check if any of the specified keywords exists
+        # Regular expression checks if any of the specified keywords exists
         # :P<bmi> Assign to the group with the keyword 'bmi'
         pattern = r".*(?P<bmi>normal|overweight|obesity|underweight).*"
         match_obj = re.search(pattern, bmi, re.I)
         if match_obj:
-            bmi = match_obj.group("input_bmi")
-            # Convert the first letter to uppercase and the rest is lowercase
-            bmi = " ".join(text[0].upper() + text[1:] for text in bmi.split())
+            # Get the matched word
+            bmi = match_obj.group("bmi")
+            # Convert the first letter to uppercase and lowercase for rest of them
+            bmi = " ".join(text[0].upper() + text[1:] for text in bmi.split())  # Capitalise the first letter
             return bmi
         # Return None if no match found
         return None
@@ -121,10 +117,9 @@ class DataValidator:
     @staticmethod
     def check_salary(input_salary):
         """
-        Check valid salary
-        :param input_salary:
-        :return:
-        Written By: Vaishali Patel
+        Check if the input salary is valid.
+        :return: Formatted salary if the input one is valid, otherwise, return None
+        :Author: Vaishali Patel
         """
         # Regular expression checks if there are consecutive 3 numbers
         # :P<salary> Assign to the group with the keyword 'salary'
@@ -137,35 +132,34 @@ class DataValidator:
         return None
 
     @staticmethod
-    def check_birthday(input_birthday):
+    def check_birthday(birthday):
         """
         Check validation of birthday
         :param birthday: <String>
         :return: washed data
-        Written By: Vaishali Patel
+        :Author: Vaishali Patel
         """
         pattern = r"^([0-9]{1,2})[-/\.]([0-9]{1,2})[-/\.]([0-9]{2}|[0-9]{4})$"
-        match = re.match(pattern, input_birthday)
+        match = re.match(pattern, birthday)
         if match:
             date = "-".join(match.groups())
-            format = strptime(date, "%d-%m-%Y")
-            return "{0}-{1}-{2}".format(
-                            format.tm_mday, format.tm_mon, format.tm_year
-                            )
+            struct = strptime(date, "%d-%m-%Y")
+            return "{0}-{1}-{2}".format(struct.tm_mday, struct.tm_mon, struct.tm_year)
         else:
             return None
 
     def check_all(self, all_data: list):
         """
-        Check validation of the all data.
+        Check validation of the all data. Throw ValueError Exceptions.
         :param all_data: a data list
         :return: washed data in dictionary
-        Written By: Vaishali Patel
+        :Author: Vaishali Patel
         """
+        # Save the washed data temporarily
         result = []
 
         # If the number of the data is not correct, return an empty result
-        if not len(all_data) == len(Employee):
+        if not len(all_data) == len(Data):
             return result
 
         # Check and wash data
@@ -179,3 +173,7 @@ class DataValidator:
 
         return result
 
+
+# print(DataValidator.check_bmi("jbjndsoidiri88888normaljdjdjd"))
+# v = DataValidator()
+# print(DataValidator.check_birthday("31-02-1990"))
