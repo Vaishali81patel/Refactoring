@@ -7,20 +7,21 @@ from data import Data
 
 
 class InterpreterController(Cmd):
+	# This class is a controller class which enable interpreter (model) and
+    # View (Console View) to interconnect with each other and
+    # This class also defined command loop enables \
+    # the associate commands invoke
+    #
+    # Written By: Patel
+    #
     def __init__(self):
-        Cmd.__init__(self)
-
-        # The command line indicator
-        self.prompt = ">>> "
-
-        # Welcome information
-        self.intro = "Welcome to Staff Information System\nEnter a keyword to start. For help, enter \"help\"."
-
-        # Object of DataValidator, for validating data
-        self._vld = DataValidator()
-
-        # Instance of EmployeeData
-        self._std = EmployeeData()
+        Cmd.__init__(self)   # Initialize cmd interface here
+        self.prompt = ">>> " # Initialize prompt
+        self._vld = DataValidator() # Object of DataValidator, for validating data
+        self._std = EmployeeData() # Instance of EmployeeData
+        self.intro = "WELCOME TO THE EMPLOYEE DATABASE MANAGEMENT CONSOLE \n ENTER A KEYWORD TO START. FOT HELP, ENTER \"help\"."
+                    # Welcome information
+        
 
     def do_select(self, line):
         """
@@ -79,7 +80,12 @@ class InterpreterController(Cmd):
 
     def do_add(self, line):
         """
-        Add a new entry of data
+        # This function enable to add employee data into system
+        # Which basically give all the available option to the user
+        # parse: splits the given sequence of characters or values (text)
+        # into smaller parts based on some rules
+        #
+        # Written By: Patel
         :param line: <EMPID> <Age> <Gender> <Sales> <BMI> <Salary> <Birthday>
         :return: None
         """
@@ -119,7 +125,12 @@ class InterpreterController(Cmd):
 
     def do_save(self, arg):
         """
-        Save data to specified data source
+        Save data to specified data source# This function enable to access dict option for respective file
+        # to be stored in the system
+        # Raise Exception error if unable to do so
+        #
+        # Written By: Patel
+        #
         :param arg: arg
         :return: None
         """
@@ -136,7 +147,12 @@ class InterpreterController(Cmd):
             View.success("Data is saved")
 
     def do_show(self, line):
-        # Get all instructions
+        # Get all instructions# This function enable to create dictionary option
+        # to respective commands and the system find matches
+        # to the respective option to show individual map / view
+        #
+        # Written By: Patel
+        #
         args = list(arg.lower() for arg in str(line).split())
 
         # Those commands are required single arguments
