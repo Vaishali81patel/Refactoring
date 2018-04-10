@@ -9,6 +9,9 @@ from enum import Enum, unique
 
 @unique
 class Employee(Enum):
+    """
+    Enum for employee data store
+    """
     EMPID = 0
     GENDER = 1
     AGE = 2

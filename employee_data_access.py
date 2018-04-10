@@ -3,6 +3,7 @@ from employee import Employee
 from file_handler import FileHandler
 from database import Database
 
+
 class EmployeeData:
     """
     This class enable to do employee data related operation and access
@@ -10,9 +11,9 @@ class EmployeeData:
     def __init__(self):
         self.emp_data = []
         self.new_emp_data = []
-        self.data_source = None
+        self._source = None
 
-    def select_source(self, data_source, file_path=None, create=False):
+    def select_source(self, source, file_path=None, create=False):
         """
         This function enable to initialize employee data and file source
         :param data_source: <string>
@@ -22,13 +23,12 @@ class EmployeeData:
         : Written By: Vaishali Patel
         """
         # Set data source
-        if data_source == "csv":
-            self.data_source = FileHandler(file_path, create)
+        if source == "csv":
+            self._source = FileHandler(file_path, create)
             self.load_data()
-        if data_source == "db":
-            self.data_source = Database()
+        if source == "db":
+            self._source = Database()
             self.load_data()
-
 
     def load_data(self):
         """
@@ -38,12 +38,11 @@ class EmployeeData:
         """
         # When fetch data from the data source
         # move existed data in self.emp_data to the end of the list
-        self.new_emp_data = self.data_source.read()
+        self.emp_data = self._source.read()
         # else:
         # old_emp_data = self.emp_data
-        # self.emp_data = self._data_source.read()
+        # self.emp_data = self._source.read()
         # self.emp_data += old_emp_data
-
 
     def add_data(self, emp_data):
         """
@@ -68,7 +67,7 @@ class EmployeeData:
                 return True
 
         for employee in self.new_emp_data:
-            if emp_data[int(Employee.EMPID.value)] == emp_data[Employee.EMPID.name]:
+            if emp_data[int(Employee.EMPID.value)] == employee[Employee.EMPID.name]:
                 return True
         return
 
@@ -77,14 +76,14 @@ class EmployeeData:
         This function enable to save data
         :return:
         """
-        if self.data_source is None:
+        if self._source is None:
             raise OSError("No data source is specified.")
 
         if len(self.new_emp_data) == 0:
             raise ValueError("No data to save.")
 
         try:
-            self.data_source.save(self.new_emp_data)
+            self._source.save(self.new_emp_data)
         except Exception as e:
             raise IOError(e)
         else:
@@ -113,8 +112,7 @@ class EmployeeData:
             # Calculate female employee
             else:
                 female += 1
-        return {"Male" :male, "Female": female}
-
+        return {"Male": male, "Female": female}
 
     def get_bmi(self):
         bmi = {}
@@ -132,7 +130,7 @@ class EmployeeData:
 
     def __del__(self):
         self.emp_data = []
-        self.data_source = None
+        self._source = None
 
 
 

@@ -16,7 +16,7 @@ class FileHandler(IDataAccess):
     __field_name = None
     # the header of employee data field in the CSV file.
 
-    def __init__(self, file_path, create = False):
+    def __init__(self, file_path, create=False):
         self.__path = file_path
         paths = str(file_path).split("/")
         if len(paths) > 1:
@@ -24,7 +24,7 @@ class FileHandler(IDataAccess):
         self.__file_name = paths[-1]
 
         # Initialize fieldnames
-        self._fieldnames = list(map(lambda i: i.name, Employee))
+        self._field_name = list(map(lambda i: i.name, Employee))
         # Create the file if it doesn't exists
         # chdir("./")
         if create:
@@ -54,7 +54,7 @@ class FileHandler(IDataAccess):
         # Try to open the file for read. Newline to avoid different newline signs
         with open(self.__path, newline="") as f:
             # Try to read data with given fieldnames
-            reader = csv.DictReader(f, fieldnames=self._fieldnames)
+            reader = csv.DictReader(f, field_name=self._field_name)
             # save data in an array, but ignore the first line
             employee = list(dict(row) for row in reader)[1:]
         return employee

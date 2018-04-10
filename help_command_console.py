@@ -1,3 +1,4 @@
+# import numpy as np
 from cmd import Cmd
 from csv import Error as CSVError
 from data_validator import DataValidator
@@ -21,7 +22,6 @@ class CLI(Cmd):
         # Instance of EmployeeData
         self._std = EmployeeData()
 
-
     def do_select(self, line):
         """
         Select data from source
@@ -42,8 +42,8 @@ class CLI(Cmd):
                 if args[0] == "-csv":
                     try:
                         if len(args) == 1:
-                            self._std.select_source(args[0][1:], "employeeInfo.csv")
-                            View.warning("No CSV file path specified. A default file \"employee.csv\ will be used.")
+                            self._std.select_source(args[0][1:], "employeeinfo.csv")
+                            View.warning("No CSV file path specified. A default file \"employeeinfo.csv\ will be used.")
                         elif len(args) == 2:
                             self._std.select_source(args[0][1:], args[1])
                         elif len(args) == 3:
@@ -67,10 +67,10 @@ class CLI(Cmd):
                     else:
                         View.Success("Data source Database is selected.")
 
-                # Code for initialixe XXXX data source
+                # Code for initialize data source
                 else:
                     pass
-        #Catch and display error message
+        # Catch and display error message
         except ValueError as e:
             View.error(str(e) + "\n")
             View.help_select()
@@ -81,7 +81,7 @@ class CLI(Cmd):
         """
         Add anew entry of data
         :param self:
-        :param line:
+        :param line: <EMPID> <Age> <Gender> <Sales> <BMI> <Salary> <Birthday>
         :return:
         """
         # Split the input argument to obtain the data
