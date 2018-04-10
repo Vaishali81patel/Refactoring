@@ -37,9 +37,9 @@ class Database(IDataAccess):
             self.cursor = self.conn.cursor()
             self.make_tables()     # call make_table method here
         except (ConnectionError, TypeError) as err:   # If type error
-            print(err)             # Raised when an operation or function is attempted
+                print(err)             # Raised when an operation or function is attempted
         except Exception as e:                      # that is invalid for the specified data type.
-           print(e)
+                print(e)
 
     def make_tables(self):
         # Written By Vaishali
@@ -52,21 +52,18 @@ class Database(IDataAccess):
         #
         #    drop_table if exists
 
-        make_table = """CREATE TABLE IF NOT EXISTS EMPLOYEE ({0} VARCHAR(6),
-                     {1} CHAR, {2} INTERGER, {3} INTERGER, 
-                     {4} VARCHAR(15), {5} INTERGER, {6} DATE);"""
+        make_table = """CREATE TABLE IF NOT EXISTS EMPLOYEE ({0} VARCHAR(6)
+                       , {1} CHAR, {2} INTERGER, {3} INTERGER
+                       , {4} VARCHAR(15), {5} INTERGER, {6} DATE);"""
         make_table = self.format_col(make_table)
-        self.cursor.execute (make_table)
-        self.conn.commit ()
+        self.cursor.execute(make_table)
+        self.conn.commit()
 
     def format_col(self, sql):
-        return sql.format(Data.EMPID.name,
-                         Data.GENDER.name,
-                         Data.AGE.name,
-                         Data.SALES.name,
-                         Data.BMI.name,
-                         Data.SALARY.name,
-                         Data.BIRTHDAY.name)
+        return sql.format(Data.EMPID.name, Data.GENDER.name,
+                          Data.AGE.name, Data.SALES.name,
+                          Data.BMI.name, Data.SALARY.name,
+                          Data.BIRTHDAY.name)
 
     def insert_employee_data(self, data_row):
         # Written By Vaishali
@@ -124,7 +121,7 @@ class Database(IDataAccess):
             self.cursor.execute("Select * from employee")
             data = self.cursor.fetchall()
             for r in data:
-                data_arr.append({d.name : r[d.value] for d in Data})
+                data_arr.append({d.name: r[d.value] for d in Data})
 
             return data_arr
         except AttributeError as err:
