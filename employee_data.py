@@ -65,12 +65,12 @@ class EmployeeData:
         :return: Boolean
         :Author: Vaishali Patel
         """
-        for staff in self.data:
-            if data[int(Data.EMPID.value)] == staff[Data.EMPID.name]:
+        for employee in self.data:
+            if data[int(Data.EMPID.value)] == employee[Data.EMPID.name]:
                 return True
 
-        for staff in self.new_data:
-            if data[int(Data.EMPID.value)] == staff[Data.EMPID.name]:
+        for employee in self.new_data:
+            if data[int(Data.EMPID.value)] == employee[Data.EMPID.name]:
                 return True
         return
 

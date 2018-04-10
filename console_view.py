@@ -194,7 +194,7 @@ class ViewConsole(View):
 
         print("\nEXAMPLES:")
         print("\t{:.<60}{:<60}".format("add B123 F 28 100 normal 200 01-01-1990",
-                                       "Add a staff with specified information."))
+                                       "Add a employee with specified information."))
 
     @staticmethod
     def help_save():

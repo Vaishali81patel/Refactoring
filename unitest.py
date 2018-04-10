@@ -66,22 +66,22 @@ class MainTests(TestCase):
         self.assertTrue(type(csv.read()) == list)
 
     def test_15(self):
-        staff_data = EmployeeData()
-        staff_data.select_source("csv", "employeeinfo.csv")
-        self.assertIsInstance(staff_data._source, FileHandler)
+        employee_data = EmployeeData()
+        employee_data.select_source("csv", "employeeinfo.csv")
+        self.assertIsInstance(employee_data._source, FileHandler)
 
     def test_16(self):
-        staff_data = EmployeeData()
-        staff_data.select_source("source")
-        self.assertIsNone(staff_data._source)
+        employee_data = EmployeeData()
+        employee_data.select_source("source")
+        self.assertIsNone(employee_data._source)
 
     def test_17(self):
-        staff_data = EmployeeData()
-        self.assertRaises(OSError, staff_data.save_data)
+        employee_data = EmployeeData()
+        self.assertRaises(OSError, employee_data.save_data)
 
     def test_18(self):
-        staff_data = EmployeeData()
-        staff_data.data = [{
+        employee_data = EmployeeData()
+        employee_data.data = [{
             "EMPID": "T123",
             "AGE": 33,
             "GENDER": "M",
@@ -90,7 +90,7 @@ class MainTests(TestCase):
             "SALARY": 200,
             "BIRTHDAY": "31-12-1985"}]
         new_data = ["T123", 26, "F", 150, "Normal", 100, "01-01-1992"]
-        self.assertTrue(staff_data.data_exist(new_data))
+        self.assertTrue(employee_data.data_exist(new_data))
 
 
 if __name__ == "__main__":
