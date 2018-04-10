@@ -1,7 +1,7 @@
-import numpy as np
-import matplotlib.pyplot as plt
-from employee import Employee
 from view import View
+import matplotlib.pyplot as plt
+import numpy as np
+from data import Data
 
 
 class ViewConsole(View):
@@ -14,7 +14,11 @@ class ViewConsole(View):
         print("Error: %s" % text)
 
     @staticmethod
-    def Success(text):
+    def success(text):
+        print("Succeed: %s" % text)
+
+    @staticmethod
+    def warning(text):
         print("Warning: %s" % text)
 
     @staticmethod
@@ -23,29 +27,29 @@ class ViewConsole(View):
 
     @staticmethod
     def display_data(data, ind=False):
-        index_txt = "\t" if ind is True else ""
+        ind_txt = "\t" if ind is True else ""
 
-        print(index_txt + "{:<8}{:<9}{:<6}{:<8}{:<15}{:<9}{:<15}"
-               .format (Employee.EMPID.name,
-                        Employee.GENDER.name,
-                        Employee.AGE.name,
-                        Employee.SALES.name,
-                        Employee.BMI.name,
-                        Employee.SALARY.name,
-                        Employee.BIRTHDAY.name))
-        print(index_txt + ("-" * 70))
+        print(ind_txt + "{:<8}{:<9}{:<6}{:<8}{:<15}{:<9}{:<15}"
+              .format(Data.EMPID.name,
+                      Data.GENDER.name,
+                      Data.AGE.name,
+                      Data.SALES.name,
+                      Data.BMI.name,
+                      Data.SALARY.name,
+                      Data.BIRTHDAY.name))
+        print(ind_txt + ("-" * 70))
         for row in data:
-            print(index_txt + "{:<8}{:<9}{:<6}{:<8}{:<15}{:<9}{:<15}"
-                   .format(row[Employee.EMPID.name],
-                            row[Employee.GENDER.name],
-                            row[Employee.AGE.name],
-                            row[Employee.SALES.name],
-                            row[Employee.BMI.name],
-                            row[Employee.SALARY.name],
-                            row[Employee.BIRTHDAY.name]))
+            print(ind_txt + "{:<8}{:<9}{:<6}{:<8}{:<15}{:<9}{:<15}"
+                  .format(row[Data.EMPID.name],
+                          row[Data.GENDER.name],
+                          row[Data.AGE.name],
+                          row[Data.SALES.name],
+                          row[Data.BMI.name],
+                          row[Data.SALARY.name],
+                          row[Data.BIRTHDAY.name]))
 
     @staticmethod
-    def display_pie_plot(data, title=""):
+    def plot_pie(data, title=""):
         # Get labels and sizes from the data
         labels, values = list(data.keys()), list(data.values())
 
@@ -58,7 +62,7 @@ class ViewConsole(View):
         # Create a figure and a set of subplots
         fq, ax = plt.subplots()
 
-        # Set labels, start angle, and the label format (e.g.: 50.0%)
+        # Set labels, start angle, and the label format (e.g.: 35.0%)
         ax.pie(values, labels=labels, startangle=90, autopct="%0.1f%%")
 
         # Equal aspect ratio ensures that pie is drawn as a circle.
@@ -73,9 +77,9 @@ class ViewConsole(View):
         plt.show()
 
     @staticmethod
-    def display_bar_plot(data, title=""):
+    def plot_bar(data, title=""):
         # Get labels and sizes from the data
-        labels, y = list (data.keys()), list(data.values())
+        labels, y = list(data.keys()), list(data.values())
 
         # Calculate numbers of items on x axis
         x = np.arange(len(labels))
@@ -101,9 +105,9 @@ class ViewConsole(View):
         plt.show()
 
     @staticmethod
-    def display_bar_horizon(data, title=""):
+    def plot_barh(data, title=""):
         # Get labels and sizes from the data
-        labels, x = list (data.keys()), list(data.values())
+        labels, x = list(data.keys()), list(data.values())
 
         # Calculate numbers of items on y axis
         y = np.arange(len(labels))
@@ -112,7 +116,7 @@ class ViewConsole(View):
         width = 0.2
 
         # Set Y, X, bar width and bar colour
-        plt.barh (y, x, width, color="#FF55AA")
+        plt.barh(y, x, width, color="#FF55AA")
 
         # Set labels for Y items
         plt.yticks(y, labels)
@@ -128,48 +132,50 @@ class ViewConsole(View):
         # plt.interactive(True)
         plt.show()
 
+    # Author: Vaishali Patel
+
     @staticmethod
-    def display_scatter_plot(data, title=""):
+    def plot_scatter(data, title=""):
         # Get labels and sizes from the data
-        labels, values = list(data.keys()), list(data.values())
+        labels, values = list (data.keys ()), list (data.values ())
 
         # Show numbers on labels
         index = 0
         while index < len (labels):
-            labels[id] = "{0} ({1})".format(labels[index],values[index])
+            labels[id] = "{0} ({1})".format (labels[index], values[index])
             index += 1
 
         # Create a figure and a set of subplots
-        fq, ax = plt.subplots()
+        fq, ax = plt.subplots ()
 
         # Set labels, start angle, and the label format (e.g.: 35.0%)
-        ax.pie(values, labels=labels, startangle=90, autopct="%0.1f%%")
+        ax.pie (values, labels=labels, startangle=90, autopct="%0.1f%%")
 
         # Equal aspect ratio ensures that pie is drawn as a circle.
-        ax.axis("equal")
+        ax.axis ("equal")
 
         # If the title is set, then convert to uppercase and display it
         if not title == "":
-            plt.title(title.upper())
+            plt.title (title.upper ())
 
         # Set of an interactive diagram is required
         # plt.interactive(True)
-        plt.show()
+        plt.show ()
 
     @staticmethod
     def help_show():
-        print ("USAGE:")
-        print ("\tshow <-OPTION> <OBJECT>")
-        print ("\nOPTIONS:")
-        print ("\t-t : Shows all data tables.")
-        print ("\t-b : Shows a bar graph of the total sales made by males verse the total sales made by female.")
-        print ("\t-p : Shows a pie chart of the percentage of female workers verse male workers")
-        print ("\t-c : Shows a scatter plot graph of peoples age verse their salary.")
-        print ("\t-i : Shows a pie chart of the BMI of a set of people.")
-        print ("\nEXAMPLES:")
-        print ("\t{:.<35}{:<50}".format ("show -t", "Show all data"))
-        print ("\t{:.<35}{:<50}".format ("show -b bmi", "Show bar chart of bmi"))
-        print ("\t{:.<35}{:<50}".format ("show -p gender", "Show pie chart of gender"))
+        print("USAGE:")
+        print("\tshow <-OPTION> <OBJECT>")
+        print("\nOPTIONS:")
+        print("\t-t : Shows all data tables.")
+        print("\t-b : Shows a bar graph of the total sales made by males verse the total sales made by female.")
+        print("\t-p : Shows a pie chart of the percentage of female workers verse male workers")
+        print("\t-c : Shows a scatter plot graph of peoples age verse their salary.")
+        print("\t-i : Shows a pie chart of the BMI of a set of people.")
+        print("\nEXAMPLES:")
+        print("\t{:.<35}{:<50}".format("show -t", "Show all data"))
+        print("\t{:.<35}{:<50}".format("show -b bmi", "Show bar chart of bmi"))
+        print("\t{:.<35}{:<50}".format("show -p gender", "Show pie chart of gender"))
         print ("\t{:.<35}{:<50}".format ("show -c salary", "Show scatter line chart of "))
 
     @staticmethod
@@ -210,7 +216,7 @@ class ViewConsole(View):
         print("\tWhen select \"-csv\", FILENAME need to be provided. Otherwise a default file will be used.")
         print("\nEXAMPLES:")
         print("\t{:.<60}{:<30}".format("select -csv", "Specify CSV as the source of data."))
-        print("\t{:.<60}{:<100}".format("select -csv -a files/data/staffinfo.csv",
+        print("\t{:.<60}{:<100}".format("select -csv -a files/data/employeeinfo.csv",
                                         "Specify a CSV file as the source of data. "
                                         "Create one if the path doesn't exist."))
         print("\t{:.<60}{:<30}".format("select -db", "Specify Database as the source of data."))
@@ -224,3 +230,8 @@ class ViewConsole(View):
         print("\nEXAMPLES:")
         print("\t{:.<20}{:<60}".format("quit", "Normal quit."))
         print("\t{:.<20}{:<60}".format("quit -f", "Force quitting the system without saving new data."))
+
+
+# new_data = {'Male': 75.0, 'Female': 15.0}
+# ViewConsole.plot_pie(new_data, "Gender")
+# ViewConsole.plot_bar(new_data, "Gender")
