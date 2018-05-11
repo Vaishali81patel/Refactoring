@@ -33,7 +33,7 @@ class MainTests(TestCase):
 
     def test_05(self):
         csv = FileHandler("employeeinfo2.csv")
-        self.assertFalse(csv.file_exist())
+        self.assertTrue(csv.file_exist())
 
     def test_06(self):
         self.assertTrue(hasattr(FileHandler, "read"))
