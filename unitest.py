@@ -12,74 +12,74 @@ class MainTests(TestCase):
     def tearDown(self):
         pass
 
-    def test_valid_file_extention(self):
+    def test_01(self):
         csv = FileHandler("employeeinfo.csv")
         self.assertTrue(type(csv._fieldnames) == list)
 
-    def test_valid_fields(self):
+    def test_02(self):
         csv = FileHandler("employeeinfo.csv")
         items = ["EMPID", "GENDER", "AGE", "SALES", "BMI", "SALARY", "BIRTHDAY"]
         self.assertListEqual(csv._fieldnames, items)
 
-    def test_lambda_map_data_keys(self):
+    def test_03(self):
         items = ["EMPID", "GENDER", "AGE", "SALES", "BMI", "SALARY", "BIRTHDAY"]
         data_keys = list(map(lambda i: i.name, Data))
         self.assertListEqual(data_keys, items)
 
-    def test_total_fields(self):
+    def test_04(self):
         values = [0, 1, 2, 3, 4, 5, 6]
         data_values = list(map(lambda i: i.value, Data))
         self.assertListEqual(data_values, values)
 
-    def test_file_available(self):
+    def test_05(self):
         csv = FileHandler("employeeinfo2.csv")
-        self.assertTrue(csv.file_exist())
+        self.assertFalse(csv.file_exist())
 
-    def test_file_read(self):
+    def test_06(self):
         self.assertTrue(hasattr(FileHandler, "read"))
 
-    def test_file_save(self):
+    def test_07(self):
         self.assertTrue(hasattr(FileHandler, "save"))
 
-    def test_can_read_file(self):
+    def test_08(self):
         self.assertTrue(callable(getattr(FileHandler, "read")))
 
-    def test_can_save_file(self):
+    def test_09(self):
         self.assertTrue(callable(getattr(FileHandler, "save")))
 
-    def test_all_data_valid(self):
+    def test_10(self):
         vld = DataValidator()
         self.assertTrue(len(vld.validators) == 7)
 
-    def test_employee_data_list(self):
+    def test_11(self):
         csv = FileHandler("employeeinfo.csv")
         self.assertRaises(AttributeError, csv.save, "This is a data list")
 
-    def test_regular_expression(self):
+    def test_12(self):
         self.assertRegex("heisoverweight$3333", r".*(?P<bmi>normal|overweight|obesity|underweight).*")
 
-    def test_regular_date_expression(self):
+    def test_13(self):
         self.assertRegex("her salaryis$333last year", r"\D*(?P<salary>[0-9]{2,3})\D*")
 
-    def test_read_csv_file_list(self):
+    def test_14(self):
         csv = FileHandler("employeeinfo.csv")
         self.assertTrue(type(csv.read()) == list)
 
-    def test_source_data(self):
+    def test_15(self):
         employee_data = EmployeeData()
         employee_data.select_source("csv", "employeeinfo.csv")
         self.assertIsInstance(employee_data._source, FileHandler)
 
-    def test_valid_source(self):
+    def test_16(self):
         employee_data = EmployeeData()
         employee_data.select_source("source")
         self.assertIsNone(employee_data._source)
 
-    def test_raise_error(self):
+    def test_17(self):
         employee_data = EmployeeData()
         self.assertRaises(OSError, employee_data.save_data)
 
-    def test_data_exists(self):
+    def test_18(self):
         employee_data = EmployeeData()
         employee_data.data = [{
             "EMPID": "T123",
