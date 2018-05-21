@@ -2,6 +2,14 @@ from data import Data
 from file_handler import FileHandler
 from database import Database
 
+class GetEmployeeData:
+    """
+    For data related operations
+    """
+    def __init__(self):
+        self.data = []
+        self._source = None
+
 def get_all_data(self):
         return self.data + self.new_data
 
