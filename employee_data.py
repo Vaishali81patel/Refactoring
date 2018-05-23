@@ -3,7 +3,7 @@ from file_handler import FileHandler
 from database import Database
 
 
-class EmployeeData:
+class EmployeeData(object):
     """
     For data related operations
     """
@@ -11,6 +11,7 @@ class EmployeeData:
         self.data = []
         self.new_data = []
         self._source = None
+
 
     def select_source(self, source, file_path=None, create=False):
         """
@@ -95,4 +96,3 @@ class EmployeeData:
             self.new_data = []
             self.load_data()
 
-    

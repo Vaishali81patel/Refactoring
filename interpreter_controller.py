@@ -2,7 +2,8 @@ from cmd import Cmd
 from csv import Error as CSVError
 from data_validator import DataValidator
 from console_view import ViewConsole as View
-from employee_data import EmployeeData
+# from employee_data import EmployeeData
+from employee_get_data import GetEmployee
 from data import Data
 
 
@@ -18,7 +19,8 @@ class InterpreterController (Cmd):
         Cmd.__init__ (self)  # Initialize cmd interface here
         self.prompt = ">>> "  # Initialize prompt
         self._vld = DataValidator ()  # Object of DataValidator, for validating data
-        self._std = EmployeeData ()  # Instance of EmployeeData
+ #       self._shw = EmployeeData ()  # Instance of EmployeeData
+        self._shw = GetEmployee () # Instace of GetEmployeeData
         self.intro = "WELCOME TO THE EMPLOYEE DATABASE MANAGEMENT CONSOLE \n ENTER A KEYWORD TO START. FOT HELP, ENTER \"help\"."
         # Welcome information
 
@@ -42,14 +44,14 @@ class InterpreterController (Cmd):
                 if args[0] == "-csv":
                     try:
                         if len (args) == 1:
-                            self._std.select_source (args[0][1:], "employeeinfo.csv")
+                            self._shw.select_source (args[0][1:], "employeeinfo.csv")
                             View.warning (
                                 "No CSV file path specified. A default file \"employeeinfo.csv\" will be used.")
                         elif len (args) == 2:
-                            self._std.select_source (args[0][1:], args[1])
+                            self._shw.select_source (args[0][1:], args[1])
                         elif len (args) == 3:
                             if args[1] == "-a":
-                                self._std.select_source (args[0][1:], args[2], True)
+                                self._shw.select_source (args[0][1:], args[2], True)
                     except (CSVError, OSError) as e:
                         View.error (e)
                     except Exception as e:
@@ -60,7 +62,7 @@ class InterpreterController (Cmd):
                 # Code for initialise database source
                 elif args[0] == "-db":
                     try:
-                        self._std.select_source (args[0][1:])
+                        self._shw.select_source (args[0][1:])
                     except (ConnectionError, TypeError) as e:
                         View.error (e)
                     except Exception as e:
@@ -112,7 +114,7 @@ class InterpreterController (Cmd):
                         key += 1
                     raise ValueError ("The following field(s) is invalid:\n%s" % e_str)
                 else:
-                    self._std.add_data (result)
+                    self._shw.add_data (result)
         except (AttributeError, ValueError) as e:
             View.error (str (e) + "\n")
             View.help_add ()
@@ -136,7 +138,7 @@ class InterpreterController (Cmd):
         """
         # If no data source selected, prompt user to do so.
         try:
-            self._std.save_data ()
+            self._shw.save_data ()
         except ValueError as e:
             View.info (e)
         except (OSError, AttributeError) as e:
@@ -162,14 +164,14 @@ class InterpreterController (Cmd):
 
         # Show data table
         if args[0] == "-t":
-            if len (self._std.data) == 0 and len (self._std.new_data) == 0:
+            if len (self._shw.data) == 0 and len (self._shw.new_data) == 0:
                 View.info ("No data to display.")
-            if not len (self._std.data) == 0:
+            if not len (self._shw.data) == 0:
                 View.display ("ORIGINAL DATA:")
-                View.display_data (self._std.data, ind=True)
-            if not len (self._std.new_data) == 0:
+                View.display_data (self._shw.data, ind=True)
+            if not len (self._shw.new_data) == 0:
                 View.display ("\nNEW DATA:")
-                View.display_data (self._std.new_data, ind=True)
+                View.display_data (self._shw.new_data, ind=True)
                 View.display ("\n(Input command \"save\" to save the new data)")
 
         elif args[0] in plot_commands:
@@ -194,14 +196,14 @@ class InterpreterController (Cmd):
     def show_pie(self, line):
         # Draw Pies
         try:
-            if len (self._std.get_gender ()) == 0 or len (self._std.get_bmi ()) == 0:
+            if len (self._shw.get_gender ()) == 0 or len (self._shw.get_bmi ()) == 0:
                 raise ValueError ("No data to display.")
             # Draw gender
             if line.upper () == Data.GENDER.name:
-                View.plot_pie (self._std.get_gender (), "Gender Distribution")
+                View.plot_pie (self._shw.get_gender (), "Gender Distribution")
             # Draw BMI
             if line.upper () == Data.BMI.name:
-                View.plot_pie (self._std.get_bmi (), "Body Mass Index (BMI)")
+                View.plot_pie (self._shw.get_bmi (), "Body Mass Index (BMI)")
         except ValueError as e:
             View.info (e)
         except Exception as e:
@@ -210,14 +212,14 @@ class InterpreterController (Cmd):
     def show_bar(self, line):
         # Draw Bars
         try:
-            if len (self._std.get_gender ()) == 0 or len (self._std.get_gender ()) == 0:
+            if len (self._shw.get_gender ()) == 0 or len (self._shw.get_gender ()) == 0:
                 raise ValueError ("No data to display.")
             # Draw gender
             if line.upper () == Data.GENDER.name:
-                View.plot_bar (self._std.get_gender (), "Gender Distribution")
+                View.plot_bar (self._shw.get_gender (), "Gender Distribution")
             # Draw BMI
             if line.upper () == Data.BMI.name:
-                View.plot_bar (self._std.get_bmi (), "Body Mass Index (BMI)")
+                View.plot_bar (self._shw.get_bmi (), "Body Mass Index (BMI)")
         except ValueError as e:
             View.info (e)
         except Exception as e:
@@ -228,14 +230,14 @@ class InterpreterController (Cmd):
     def show_scatter(self, line):
         # Draw Line Scatter
         try:
-            if len (self._std.get_gender ()) == 0 or len (self._std.get_gender ()) == 0:
+            if len (self._shw.get_gender()) == 0 or len (self._shw.get_salary()) == 0:
                 raise ValueError ("No data to display.")
             # Draw gender
             if line.upper () == Data.GENDER.name:
-                View.plot_bar (self._std.get_gender (), "Gender Distribution")
+                View.plot_bar (self._shw.get_gender(), "Gender Distribution")
             # Draw BMI
             if line.upper () == Data.SALARY.name:
-                View.plot_bar (self._std.get_salary (), "Body Mass Index (SALARY)")
+                View.plot_bar (self._shw.get_salary(), "Salary Index (SALARY)")
         except ValueError as e:
             View.info (e)
         except Exception as e:
@@ -263,7 +265,7 @@ class InterpreterController (Cmd):
 
     def do_quit(self, line):
         arg = str (line).lower ()
-        if not arg == "-f" and not len (self._std.new_data) == 0:
+        if not arg == "-f" and not len (self._shw.new_data) == 0:
             View.warning ("The new data hasn't been saved. Enter \"quit -f\" to quit without saving.")
         else:
             View.display ("Thanks for using. Bye!")
