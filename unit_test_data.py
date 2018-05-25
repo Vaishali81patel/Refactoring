@@ -1,7 +1,7 @@
 import unittest
 from data import *
 
-class StatementCoverageTests(unittest.TestCase):
+class EmployeeDataFormatTests(unittest.TestCase):
     """ test for data.py"""
 
     @classmethod
@@ -32,11 +32,24 @@ class StatementCoverageTests(unittest.TestCase):
     def test_regular_empid_expression(self):
         self.assertRegex ("her empiidis$A333", r".*(?P<empid>[A-Z][0-9]{3}).*")
 
+    def test_regular_gender_expression(self):
+        self.assertRegex ("her genderis$F", r".*(?P<gender>F\w*|M\w*).*")
+
+    def test_regular_age_expression(self):
+        self.assertRegex ("her ageis$28", r".*(?P<age>[0-9]{2}).*")
+
+    def test_regular_sales_expression(self):
+        self.assertRegex ("her salesis$555", r".*(?P<sales>[0-9]{2,3}).*")
+
     def test_regular_bmi_expression(self):
         self.assertRegex ("heisoverweight$3333", r".*(?P<bmi>normal|overweight|obesity|underweight).*")
 
-    def test_regular_date_expression(self):
-        self.assertRegex ("her salaryis$333last year", r"\D*(?P<salary>[0-9]{2,3})\D*")
+    def test_regular_salary_expression(self):
+        self.assertRegex ("her salesis$999", r".*(?P<salary>[0-9]{2,3}).*")
+
+   # def test_regular_birthday_expression(self):
+    #    self.assertRegex ("her birthdayis$12-12-2000", r"\D*(?P<birthday>[0-9]{1,2})[-/\.]([0-9]{1,2})[-/\.]([0-9]{2}|[0-9]{4}\D*")
+
 
 if __name__ == '__main__':
     unittest.main ()

@@ -5,7 +5,7 @@ from data_validator import DataValidator
 from employee_data import EmployeeData
 
 
-class MainTests(TestCase):
+class EmployeeUnitTests(TestCase):
     def setUp(self):
         pass
 
