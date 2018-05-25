@@ -1,20 +1,37 @@
-import demo2
-
 import unittest
-
+from data import Data
 
 class StatementCoverageTests(unittest.TestCase):
-    def setUp(self):
-        print("A test case is called.")
+    """ test for data.py"""
 
-    def test_1(self):
-        """
-        100% statement covered
-        """
-        self.assertEqual(10, demo2.method1(5, True, True, True, False))
+    @classmethod
+    def setUpClass(cls):
+        print ("called once before any tests in class")
+
+    @classmethod
+    def tearDownClass(cls):
+        print ("\ncalled once after all tests in class")
+
+    def setUp(self):
+        self.a = 10
+        self.b = 20
+        name = self.shortDescription ()
+        print
+        '\n', name
 
     def tearDown(self):
-        print("This test case is done!")
+        print ("\nend of test', self.shortDescription ()")
+
+    def test1(self):
+        """One"""
+        result = self.a + self.b
+        self.assertTrue (True)
+
+    def test2(self):
+        """Two"""
+        result = self.a - self.b
+        self.assertTrue (False)
+
 
 if __name__ == '__main__':
-    unittest.main(verbosity=2)
+    unittest.main ()
