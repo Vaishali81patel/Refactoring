@@ -1,6 +1,4 @@
 from data import Data
-from file_handler import FileHandler
-from database import Database
 from employee_data import EmployeeData
 
 class GetEmployee(EmployeeData):
