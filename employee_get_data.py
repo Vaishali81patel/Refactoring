@@ -4,11 +4,14 @@ from employee_data import EmployeeData
 class GetEmployee(EmployeeData):
 
     def __init__(self):
-        print ('Delegation works!!.')
+      #  print ('Delegation works!!.')
         super ().__init__()
 
     def get_all_data(self):
         return self.data + self.new_data
+
+    def displayCount(self):
+        GetEmployee.empCount
 
     def get_gender(self):
         """

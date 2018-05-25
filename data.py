@@ -15,7 +15,7 @@ class Data(Enum):
     SALARY = 5
     BIRTHDAY = 6
 
-   def setData(self, Data):
+    def setData(self, Data):
         self.Data = Data
 
     def getData(self):

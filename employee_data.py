@@ -11,6 +11,11 @@ class EmployeeData(object):
         self.data = []
         self.new_data = []
         self._source = None
+        EmployeeData.empCount += 1
+
+    # Count Total Employee
+    def countEmployee(self):
+        pass
 
 
     def select_source(self, source, file_path=None, create=False):
