@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 """
 Unit Testing with Python
 http://www.drdobbs.com/testing/unit-testing-with-python/240165163?pgno=1
@@ -5,10 +7,12 @@ http://www.drdobbs.com/testing/unit-testing-with-python/240165163?pgno=1
 https://docs.python.org/3/library/unittest.html
 """
 
+from io import StringIO
+import sys
+import HtmlTestRunner
 from unit_test_file_handler import *
 from unit_test_employee import *
 from unit_test_data import *
-
 import unittest
 # import doctest
 
@@ -27,6 +31,7 @@ def unit_suite():
 
 
 if __name__ == '__main__':
+    unittest.main (testRunner=HtmlTestRunner.HTMLTestRunner (output='Coverage_dir'))
     runner_unit = unittest.TextTestRunner(verbosity=2)
     # runner = unittest.TextTestRunner(descriptions=True, verbosity=2)
     test_suite = unit_suite()
