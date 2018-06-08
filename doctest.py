@@ -1,4 +1,4 @@
-from doctest import testmod
+# from doctest import testmod
 from data import Data
 from data_validator import DataValidator
 from employee_data import EmployeeData
@@ -107,3 +107,4 @@ def create_file(filename):
 
 if __name__ == "__main__":
     testmod(verbose=True)
+

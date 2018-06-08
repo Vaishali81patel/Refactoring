@@ -13,6 +13,9 @@ import HtmlTestRunner
 from unit_test_file_handler import *
 from unit_test_employee import *
 from unit_test_data import *
+from unit_test_controller import *
+from unitest import *
+from doctest import *
 import unittest
 # import doctest
 
